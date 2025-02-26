@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Shield, Gift } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Gift, Wallet } from "lucide-react";
 import { CardPreview } from "@/components/ui/card-preview";
 
 const Index = () => {
@@ -15,8 +15,8 @@ const Index = () => {
           </div>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#beneficios" className="text-sm hover:text-primary transition-colors">Benefícios</a>
-            <a href="#como-funciona" className="text-sm hover:text-primary transition-colors">Como Funciona</a>
-            <a href="#contato" className="text-sm hover:text-primary transition-colors">Contato</a>
+            <a href="#vantagens" className="text-sm hover:text-primary transition-colors">Vantagens</a>
+            <a href="#duvidas" className="text-sm hover:text-primary transition-colors">Dúvidas</a>
           </nav>
         </div>
       </header>
@@ -32,16 +32,16 @@ const Index = () => {
                 className="space-y-6"
               >
                 <h1 className="text-4xl md:text-6xl font-semibold text-balance">
-                  Libere seu cartão em menos de 2 minutos
+                  Cartão de crédito para negativados, top 1 do mercado com limites de até R$9.500
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  Responda algumas perguntas simples e descubra as vantagens exclusivas que preparamos para você.
+                  Aprovação facilitada mesmo para negativados. Sem consulta ao SPC/Serasa.
                 </p>
                 <button 
                   className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
                   onClick={() => window.location.href = '/solicitar'}
                 >
-                  Quero liberar meu limite
+                  Quero meu cartão agora
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </motion.div>
@@ -68,22 +68,27 @@ const Index = () => {
               <p className="text-muted-foreground">Aproveite todas as vantagens do seu novo cartão</p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-4 gap-8">
               {[
                 {
                   icon: Shield,
-                  title: "Segurança Total",
-                  description: "Proteção completa em todas as suas transações e dados pessoais."
+                  title: "Aprovação Garantida",
+                  description: "Mesmo para negativados, aprovamos seu cartão em minutos."
                 },
                 {
                   icon: Gift,
-                  title: "Benefícios Exclusivos",
-                  description: "Cashback, descontos especiais e vantagens únicas para nossos clientes."
+                  title: "Sem Anuidade",
+                  description: "Cartão sem anuidade e sem taxas escondidas."
+                },
+                {
+                  icon: Wallet,
+                  title: "Limite Alto",
+                  description: "Limites de até R$9.500 com aumento progressivo."
                 },
                 {
                   icon: Sparkles,
-                  title: "Aprovação Rápida",
-                  description: "Processo simplificado e resposta em poucos minutos após a solicitação."
+                  title: "Benefícios VIP",
+                  description: "Cashback em compras e vantagens exclusivas."
                 }
               ].map((benefit, index) => (
                 <motion.div
