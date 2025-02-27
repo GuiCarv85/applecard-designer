@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -185,23 +184,23 @@ const Quiz = () => {
 
             <div className="grid gap-4">
               {[
-                "Até R$1.000",
-                "De R$1.001 a R$2.500",
-                "De R$2.501 a R$4.000"
+                { label: "Até R$1.000", value: 1000 },
+                { label: "De R$1.001 a R$2.500", value: 2500 },
+                { label: "De R$2.501 a R$4.000", value: 4000 }
               ].map((option, index) => (
                 <button
                   key={index}
                   onClick={() => {
-                    setQuizData({ ...quizData, income: option });
-                    handleNext();
+                    setQuizData({ ...quizData, income: String(option.value) });
+                    navigate("/cadastro");
                   }}
                   className={`p-4 rounded-xl text-left transition-all ${
-                    quizData.income === option
+                    quizData.income === String(option.value)
                       ? "bg-primary text-white"
                       : "bg-secondary hover:bg-secondary/80"
                   }`}
                 >
-                  {option}
+                  {option.label}
                 </button>
               ))}
             </div>
