@@ -51,7 +51,7 @@ const Carregamento = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <h2 className="text-xl font-semibold">Analisando seu perfil</h2>
+            <h2 className="text-xl font-semibold">Analisando seu crédito</h2>
             <p className="text-muted-foreground">
               Aguarde enquanto processamos suas informações...
             </p>

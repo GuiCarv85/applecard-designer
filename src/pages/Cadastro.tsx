@@ -8,16 +8,29 @@ import { Eye, EyeOff } from "lucide-react";
 const Cadastro = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     cpf: "",
-    cardPassword: ""
+    cardPassword: "",
+    confirmPassword: ""
   });
+  const [error, setError] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/interesses");
+    
+    if (formData.cardPassword !== formData.confirmPassword) {
+      setError("As senhas não coincidem");
+      return;
+    }
+
+    if (formData.cardPassword.length !== 4) {
+      setError("A senha deve ter 4 dígitos");
+      return;
+    }
+
+    navigate("/carregamento");
   };
 
   return (
@@ -30,9 +43,9 @@ const Cadastro = () => {
       >
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold">Cadastro</h1>
+            <h1 className="text-2xl font-semibold">Complete seu cadastro</h1>
             <p className="text-muted-foreground">
-              Preencha seus dados para continuar
+              Preencha seus dados para análise de crédito
             </p>
           </div>
 
@@ -46,20 +59,6 @@ const Cadastro = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Digite seu nome completo"
-                required
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium mb-2">
-                E-mail
-              </label>
-              <Input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                placeholder="Digite seu e-mail"
                 required
               />
             </div>
@@ -104,6 +103,38 @@ const Cadastro = () => {
                 </button>
               </div>
             </div>
+
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
+                Confirme a Senha
+              </label>
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  placeholder="Confirme a senha do cartão"
+                  maxLength={4}
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {error && (
+              <p className="text-sm text-red-500 text-center">{error}</p>
+            )}
           </div>
 
           <div className="space-y-3">
