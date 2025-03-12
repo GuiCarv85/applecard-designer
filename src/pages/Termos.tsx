@@ -6,6 +6,12 @@ import { Shield } from "lucide-react";
 const Termos = () => {
   const navigate = useNavigate();
   
+  // Função para navegar sem alterar a URL
+  const navigateWithoutChangingURL = (path: string) => {
+    window.history.pushState({ prevPath: window.location.pathname }, '', window.location.pathname);
+    navigate(path, { replace: true });
+  };
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary flex items-center justify-center p-4">
       <motion.div
@@ -34,13 +40,13 @@ const Termos = () => {
 
         <div className="flex flex-col gap-3">
           <button
-            onClick={() => navigate("/cadastro")}
+            onClick={() => navigateWithoutChangingURL("/cadastro")}
             className="w-full py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
           >
             Aceitar e Continuar
           </button>
           <button
-            onClick={() => navigate(-1)}
+            onClick={() => navigateWithoutChangingURL("/")}
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             Voltar

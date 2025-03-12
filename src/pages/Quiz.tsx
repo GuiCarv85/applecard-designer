@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -66,11 +67,20 @@ const Quiz = () => {
     whatsapp: ""
   });
 
+  // Função para navegar suavemente para outra página sem alterar a URL
+  const navigateWithoutChangingURL = (path: string) => {
+    // Usando o history state para armazenar a página anterior
+    window.history.pushState({ prevPath: window.location.pathname }, '', window.location.pathname);
+    
+    // Navegamos programaticamente sem alterar a URL
+    navigate(path, { replace: true });
+  };
+
   const handleNext = () => {
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep(prev => prev + 1);
     } else {
-      navigate("/aprovacao");
+      navigateWithoutChangingURL("/aprovacao");
     }
   };
 
@@ -78,7 +88,7 @@ const Quiz = () => {
     if (currentStep > 1) {
       setCurrentStep(prev => prev - 1);
     } else {
-      navigate("/");
+      navigateWithoutChangingURL("/");
     }
   };
 
@@ -192,7 +202,8 @@ const Quiz = () => {
                   key={index}
                   onClick={() => {
                     setQuizData({ ...quizData, income: String(option.value) });
-                    navigate("/cadastro");
+                    // Usando a navegação suave para ir para o cadastro
+                    navigateWithoutChangingURL("/cadastro");
                   }}
                   className={`p-4 rounded-xl text-left transition-all ${
                     quizData.income === String(option.value)

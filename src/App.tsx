@@ -3,7 +3,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import Index from "./pages/Index";
 import Quiz from "./pages/Quiz";
 import PreAprovacao from "./pages/PreAprovacao";
@@ -25,12 +26,36 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
+// Componente para lidar com navegação sem alterar URL
+const NavigationHandler = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Lidando com botões voltar/avançar do navegador sem alterar URL
+    const handlePopState = (event: PopStateEvent) => {
+      if (event.state?.prevPath) {
+        navigate(event.state.prevPath, { replace: true });
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [navigate]);
+
+  return null;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <NavigationHandler />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/solicitar" element={<Quiz />} />

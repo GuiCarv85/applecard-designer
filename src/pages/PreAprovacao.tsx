@@ -5,6 +5,12 @@ import { CheckCircle } from "lucide-react";
 
 const PreAprovacao = () => {
   const navigate = useNavigate();
+  
+  // Função para navegar sem alterar a URL
+  const navigateWithoutChangingURL = (path: string) => {
+    window.history.pushState({ prevPath: window.location.pathname }, '', window.location.pathname);
+    navigate(path, { replace: true });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary flex items-center justify-center p-4">
@@ -33,7 +39,7 @@ const PreAprovacao = () => {
         </div>
 
         <button
-          onClick={() => navigate("/termos")}
+          onClick={() => navigateWithoutChangingURL("/termos")}
           className="w-full py-3 bg-primary text-white rounded-full hover:bg-primary/90 transition-colors"
         >
           Continuar
